@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Camera
@@ -7,21 +7,17 @@ namespace Camera
     {
         public CinemachineBrain cbrain;
 
-        CinemachineVirtualCamera currentCam;
+        CinemachineCamera currentCam;
         float sceneWidth = 28.45f;
-
-        private void Start()
-        {
-            currentCam = cbrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
-        }
 
         private void Update()
         {
-            currentCam = cbrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineVirtualCamera>();
+            currentCam = cbrain.ActiveVirtualCamera as CinemachineCamera;
+            if (!currentCam) return;
 
             float unitsPerPixel = sceneWidth / Screen.width;
             float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
-            currentCam.m_Lens.OrthographicSize = desiredHalfHeight;
+            currentCam.Lens.OrthographicSize = desiredHalfHeight;
 
         }
     }

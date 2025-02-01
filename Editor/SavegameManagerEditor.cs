@@ -2,7 +2,7 @@ using SaveSystem;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Core.Editor
 {
     [CustomEditor(typeof(SavegameManager))]
     public class SavegameManagerEditor : UnityEditor.Editor
