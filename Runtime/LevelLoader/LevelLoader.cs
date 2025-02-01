@@ -1,18 +1,17 @@
 using System.Collections;
 using Audio;
-using SaveGame;
-using UI.Scripts.Menu;
+using Menu;
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-namespace Singletons.LevelLoader
+namespace LevelLoader
 {
     public class LevelLoader : MonoBehaviour
     {
         public static LevelLoader instance;
-        public bool PlayStartAnimation;
-        [FormerlySerializedAs("SaveOnLoadLevel")] public bool SaveOnLevelExit;
+        public bool playStartAnimation;
+        public bool saveOnLevelExit;
         public Animator transition;
         public float transitionTime = 2f;
 
@@ -23,7 +22,7 @@ namespace Singletons.LevelLoader
 
         private void Start()
         {
-            if (PlayStartAnimation)
+            if (playStartAnimation)
             {
                 transition.SetTrigger("Beginning");
                 AudioManager.instance.Play("LevelEntry");
@@ -39,7 +38,7 @@ namespace Singletons.LevelLoader
                 return;
             }
         
-            if (SaveOnLevelExit) SavegameManager.SaveGame();
+            if (saveOnLevelExit) SavegameManager.SaveGame();
             AudioManager.instance.ClearAudioAdditions();
             StartCoroutine( LoadLevel(index) );
         }

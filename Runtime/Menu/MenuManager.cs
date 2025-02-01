@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
-namespace UI.Scripts.Menu
+namespace Menu
 {
     public class MenuManager : MonoBehaviour
     {
-        public static MenuManager instance;
-        public Menu pauseMenu;
         private static Menu currentMenu;
+        public static MenuManager instance;
+        
+        public Menu pauseMenu;
+        public InputAction pauseAction;
+        public InputAction closeAction;
 
-        private VolumeProfile currentProfile;
         [HideInInspector]
         public bool canTriggerPause = true;
         public static bool isPaused;
@@ -25,17 +27,17 @@ namespace UI.Scripts.Menu
 
         private void Start()
         {
-            InputManager.playerInput.onControlsChanged += (input) =>
+            PlayerInput.GetPlayerByIndex(0).onControlsChanged += (input) =>
             {
                 if (currentMenu) SetSelectedElement(currentMenu.firstSelected);
             };
 
-            InputManager.controls.UIControl.Close.performed += ctx => CloseMenu();
+            closeAction.performed += ctx => CloseMenu();
         }
 
         private void Update()
         {
-            if (InputManager.controls.UIControl.Pause.triggered)
+            if (pauseAction.triggered)
             {
                 if(currentMenu == null && canTriggerPause)
                 {
@@ -55,8 +57,6 @@ namespace UI.Scripts.Menu
         {
             if (currentMenu == menu) return;
             if (currentMenu != null) CloseMenu();
-            currentProfile = VolumeManager.GetCurrentProfile();
-            VolumeManager.SetVolumeProfile(VolumeManager.menuProfile);
             Cursor.visible = true;
             currentMenu = menu;
             currentMenu.gameObject.SetActive(true);
@@ -66,7 +66,6 @@ namespace UI.Scripts.Menu
         public void CloseMenu()
         {
             if (currentMenu == null) return;
-            VolumeManager.SetVolumeProfile(currentProfile);
             Cursor.visible = false;
             currentMenu.CloseMenu();
             currentMenu.gameObject.SetActive(false);
@@ -81,7 +80,8 @@ namespace UI.Scripts.Menu
         public void SetSelectedElement(GameObject element)
         {
             EventSystem.current.SetSelectedGameObject(null);
-            if(element && InputManager.IsControllerActive()) EventSystem.current.SetSelectedGameObject(element);
+            if(element && PlayerInput.GetPlayerByIndex(0).currentControlScheme == "Gamepad") //TODO Check if works
+                EventSystem.current.SetSelectedGameObject(element);
         }
     }
 }
