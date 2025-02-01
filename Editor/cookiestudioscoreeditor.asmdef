@@ -1,0 +1,16 @@
+{
+    "name": "cookiestudioscoreeditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:91a8fdb4f5c92b948942b36896cfec90"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

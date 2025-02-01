@@ -1,7 +1,6 @@
-﻿using Audio;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Singletons.Scripts.Audio
+namespace Audio
 {
     public class AudioAddition : MonoBehaviour
     {

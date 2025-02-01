@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Base_Classes
+namespace Player
 {
     public class Life : MonoBehaviour
     {
