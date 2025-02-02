@@ -11,8 +11,7 @@ namespace Menu
         public static MenuManager instance;
         
         public Menu pauseMenu;
-        public InputAction pauseAction;
-        public InputAction closeAction;
+        public InputActionReference pauseAction;
 
         [HideInInspector]
         public bool canTriggerPause = true;
@@ -31,13 +30,11 @@ namespace Menu
             {
                 if (currentMenu) SetSelectedElement(currentMenu.firstSelected);
             };
-
-            closeAction.performed += ctx => CloseMenu();
         }
 
         private void Update()
         {
-            if (pauseAction.triggered)
+            if (pauseAction.action.triggered)
             {
                 if(currentMenu == null && canTriggerPause)
                 {
