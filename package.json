@@ -1,6 +1,6 @@
 {
   "name": "com.cookiestudios.core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "displayName": "Cookie Studios Core",
   "description": "Package used to implement core functions of a Cookie Studios game",
   "unity": "2021.1",
